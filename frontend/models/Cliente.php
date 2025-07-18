@@ -3,6 +3,8 @@
 namespace frontend\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "cliente".
@@ -16,10 +18,22 @@ use Yii;
  * @property string|null $direccion
  * @property string|null $created_at
  * @property string|null $updated_at
+ * @property string $tipo
+
  */
 class Cliente extends \yii\db\ActiveRecord
 {
-
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at',
+                'value' => new Expression('NOW()'), // O usa time() si querés timestamp UNIX
+            ],
+        ];
+    }
 
     /**
      * {@inheritdoc}
@@ -42,6 +56,7 @@ class Cliente extends \yii\db\ActiveRecord
             [['telefono1', 'telefono2'], 'string', 'max' => 20],
             [['email'], 'string', 'max' => 150],
             [['direccion'], 'string', 'max' => 255],
+            ['tipo', 'in', 'range' => ['inquilino', 'propietario', 'otro']],
         ];
     }
 
@@ -60,6 +75,10 @@ class Cliente extends \yii\db\ActiveRecord
             'direccion' => Yii::t('app', 'Direccion'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
+            'created_at' => Yii::t('app', 'Creado el'),
+            'updated_at' => Yii::t('app', 'Actualizado el'),
+            'tipo' => Yii::t('app', 'Tipo de cliente'),
+
         ];
     }
 

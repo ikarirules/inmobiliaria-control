@@ -149,4 +149,68 @@ class CajaController extends Controller
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
+
+    public function actionResumen()
+{
+    $request = Yii::$app->request;
+    $medioPago = $request->get('medio_pago', null);
+    // var_dump($medioPago); die();
+
+    $query = \frontend\models\Caja::find();
+
+    if ($medioPago !== null) {
+        $query->andWhere(['medio_pago' => $medioPago]);
+    }
+
+    $hoy = date('Y-m-d');
+    $mes = date('Y-m');
+    $anio = date('Y');
+
+    $inicioMes = date('Y-m-01');
+$finMes = date('Y-m-t');
+
+$inicioAnio = date('Y-01-01');
+$finAnio = date('Y-12-31');
+
+
+  // var_dump($hoy , $mes, $anio); die();
+    // Totales generales
+    $ingresosTotales = (clone $query)->andWhere(['tipo_movimiento' => '0'])->sum('monto');
+    $egresosTotales = (clone $query)->andWhere(['tipo_movimiento' => '1'])->sum('monto');
+    // Año
+    $ingresosAnio = (clone $query)->andWhere(['tipo_movimiento' => '0'])
+        ->andWhere(['between', 'fecha', $inicioAnio, $finAnio])->sum('monto');
+    $egresosAnio = (clone $query)->andWhere(['tipo_movimiento' => '1'])
+        ->andWhere(['between', 'fecha', $inicioAnio, $finAnio])->sum('monto');
+
+    // Mes
+    $ingresosMes = (clone $query)->andWhere(['tipo_movimiento' => '0'])
+        ->andWhere(['between', 'fecha', $inicioMes, $finMes])->sum('monto');
+    $egresosMes = (clone $query)->andWhere(['tipo_movimiento' => '1'])
+        ->andWhere(['between', 'fecha', $inicioMes, $finMes])->sum('monto');
+
+    
+    // Día
+    $ingresosDia = (clone $query)->andWhere(['tipo_movimiento' => '0'])
+        ->andWhere(['like', 'fecha', $hoy])->sum('monto');
+    $egresosDia = (clone $query)->andWhere(['tipo_movimiento' => '1'])
+        ->andWhere(['like', 'fecha', $hoy])->sum('monto');
+
+
+
+        // var_dump($ingresosDia);die();
+
+    return $this->render('resumen', [
+        'ingresosTotales' => $ingresosTotales,
+        'egresosTotales' => $egresosTotales,
+        'ingresosDia' => $ingresosDia,
+        'egresosDia' => $egresosDia,
+        'ingresosMes' => $ingresosMes,
+        'egresosMes' => $egresosMes,
+        'ingresosAnio' => $ingresosAnio,
+        'egresosAnio' => $egresosAnio,
+        'medioPago' => $medioPago,
+    ]);
+}
+
 }

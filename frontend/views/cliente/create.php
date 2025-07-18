@@ -6,9 +6,8 @@ use yii\helpers\Html;
 /** @var frontend\models\Cliente $model */
 
 $this->title = Yii::t('app', 'Create Cliente');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Clientes'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="cliente-create">
 
     <h1><?= Html::encode($this->title) ?></h1>

@@ -9,9 +9,6 @@ use yii\widgets\Pjax;
 /** @var yii\web\View $this */
 /** @var frontend\models\CajaSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
-
-$this->title = Yii::t('app', 'Cajas');
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="caja-index">
 

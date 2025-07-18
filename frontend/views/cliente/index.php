@@ -10,8 +10,6 @@ use yii\widgets\Pjax;
 /** @var frontend\models\ClienteSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = Yii::t('app', 'Clientes');
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="cliente-index">
 
@@ -28,13 +26,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
+           // 'id',
             'nombres',
             'apellidos',
-            'telefono1',
-            'telefono2',
+            'tipo',
+            //'telefono1',
+            //'telefono2',
             //'email:email',
             //'direccion',
             //'created_at',

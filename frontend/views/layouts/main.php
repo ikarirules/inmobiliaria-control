@@ -81,16 +81,6 @@ AppAsset::register($this);
 </main>
 
 <!-- Botones flotantes para móviles -->
-<div class="floating-buttons d-md-none">
-    <?= Html::a('💰', ['caja/create', 'dato' => 0], [
-        'class' => 'btn btn-success btn-floating btn-floating-ingreso',
-        'title' => 'Ingreso'
-    ]) ?>
-    <?= Html::a('💸', ['caja/create', 'dato' => 1], [
-        'class' => 'btn btn-danger btn-floating btn-floating-egreso',
-        'title' => 'Egreso'
-    ]) ?>
-</div>
 
 <footer class="footer mt-auto py-3 text-muted">
     <div class="container">
