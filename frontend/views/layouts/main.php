@@ -163,7 +163,7 @@ AppAsset::register($this);
     }
     
     .main-content {
-        margin-top: 70px;
+        margin-top: 2px;
     }
 }
 
@@ -221,6 +221,7 @@ AppAsset::register($this);
 
 .container {
     max-width: 1200px;
+    padding: 2px !important;
 }
 
 /* === FOOTER === */
