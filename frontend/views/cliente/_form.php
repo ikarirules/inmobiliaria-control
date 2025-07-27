@@ -73,6 +73,11 @@ use yii\widgets\ActiveForm;
     .btn-submit:active {
         transform: translateY(0);
     }
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
 </style>
 
 <div class="form-container">
@@ -81,20 +86,19 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin([
         'options' => ['id' => 'cliente-form']
     ]); ?>
-
+<div class="form-grid">
     <?= $form->field($model, 'nombres')->textInput(['maxlength' => true, 'class' => 'form-control']) ?>
     <?= $form->field($model, 'apellidos')->textInput(['maxlength' => true, 'class' => 'form-control']) ?>
     <?= $form->field($model, 'telefono1')->textInput(['maxlength' => true, 'class' => 'form-control']) ?>
     <?= $form->field($model, 'telefono2')->textInput(['maxlength' => true, 'class' => 'form-control']) ?>
     <?= $form->field($model, 'email')->input('email', ['maxlength' => true, 'class' => 'form-control']) ?>
     <?= $form->field($model, 'direccion')->textInput(['maxlength' => true, 'class' => 'form-control']) ?>
-
     <?= $form->field($model, 'tipo')->dropDownList([
         'inquilino' => '🏠 Inquilino',
         'propietario' => '🏡 Propietario',
         'otro' => '👤 Otro',
     ], ['prompt' => 'Seleccione un tipo', 'class' => 'form-control']) ?>
-
+</div>
     <div class="form-group">
         <?= Html::submitButton('💾 Guardar Cliente', ['class' => 'btn-submit']) ?>
     </div>

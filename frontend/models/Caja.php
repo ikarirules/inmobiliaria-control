@@ -68,7 +68,7 @@ class Caja extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'fecha' => Yii::t('app', 'Fecha actual'),
             'fecha_referencia' => Yii::t('app', 'Fecha Referencia'),
-            'tipo_movimiento' => Yii::t('app', 'Tipo Movimiento(0=ingreso , 1=egreso)'),
+            'tipo_movimiento' => Yii::t('app', '(0=ingreso , 1=egreso)'),
             'medio_pago' => Yii::t('app', 'Medio Pago'),
             'monto' => Yii::t('app', 'Monto'),
             'id_categoria' => Yii::t('app', 'Id Categoria'),
@@ -77,6 +77,16 @@ class Caja extends \yii\db\ActiveRecord
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
         ];
+    }
+
+    public function getMedioPagoRel()
+    {
+        return $this->hasOne(MedioPago::class, ['id' => 'medio_pago']);
+    }
+
+    public function getClienteRel()
+    {
+        return $this->hasOne(Cliente::class, ['id' => 'id_cliente']);
     }
 
 }

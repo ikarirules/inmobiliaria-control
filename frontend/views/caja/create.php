@@ -14,8 +14,6 @@ if ($model->tipo_movimiento == 1) {
 }
 
 // $this->title = Yii::t('app', ' Caja');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Cajas'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="caja-create">
 

@@ -10,13 +10,13 @@ use yii\web\JsExpression;
 
 <div class="caja-form-container">
     <div class="form-header">
-        <h3 class="form-title">
+        <h4 class="form-title">
             <?php if ($model->tipo_movimiento == 0): ?>
                 <span class="badge badge-ingreso">💰 Nuevo Ingreso</span>
             <?php else: ?>
                 <span class="badge badge-egreso">💸 Nuevo Egreso</span>
             <?php endif; ?>
-        </h3>
+        </h4>
     </div>
 
     <div class="form-card">
@@ -24,74 +24,73 @@ use yii\web\JsExpression;
             'id' => 'caja-form',
             'options' => ['class' => 'form-modern'],
             'fieldConfig' => [
-                'template' => '<div class="form-group-modern">{label}{input}{error}</div>',
-                'labelOptions' => ['class' => 'form-label-modern'],
-                'inputOptions' => ['class' => 'form-control-modern'],
-                'errorOptions' => ['class' => 'form-error-modern'],
+                'template' => '<div class="form-group-compact">{label}{input}{error}</div>',
+                'labelOptions' => ['class' => 'form-label-compact'],
+                'inputOptions' => ['class' => 'form-control-compact'],
+                'errorOptions' => ['class' => 'form-error-compact'],
             ],
         ]); ?>
 
-        <!-- Fila 1: Fechas -->
+        <?= $form->field($model, 'tipo_movimiento')->hiddenInput()->label(false) ?>
+
+        <!-- Fila 1: Fechas en una sola línea -->
         <div class="row">
             <div class="col-md-6">
                 <?= $form->field($model, 'fecha')->textInput([
-                    'class' => 'form-control form-control-modern',
+                    'class' => 'form-control form-control-compact',
                     'id' => 'fecha-picker',
-                    'placeholder' => 'Seleccione la fecha'
+                    'placeholder' => 'Fecha'
                 ])->label('📅 Fecha') ?>
             </div>
             <div class="col-md-6">
                 <?= $form->field($model, 'fecha_referencia')->textInput([
-                    'class' => 'form-control form-control-modern',
+                    'class' => 'form-control form-control-compact',
                     'id' => 'fecha-referencia-picker',
-                    'placeholder' => 'Fecha de referencia'
-                ])->label('📋 Fecha de Referencia') ?>
+                    'placeholder' => 'Fecha ref.'
+                ])->label('📋 Fecha Ref.') ?>
             </div>
         </div>
 
-        <!-- Campo oculto -->
-        <?= $form->field($model, 'tipo_movimiento')->hiddenInput()->label(false) ?>
-
-        <!-- Fila 2: Monto y Medio de Pago -->
+        <!-- Fila 2: Monto, Medio de Pago y Categoría en una línea -->
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <?= $form->field($model, 'monto')->textInput([
                     'maxlength' => true,
-                    'class' => 'form-control form-control-modern form-control-money',
+                    'class' => 'form-control form-control-compact form-control-money',
                     'placeholder' => '0.00',
                     'id' => 'monto-input'
                 ])->label('💵 Monto') ?>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <?= $form->field($model, 'medio_pago')->dropDownList(
                     $medios,
                     [
-                        'prompt' => 'Seleccione un medio de pago',
-                        'class' => 'form-control form-control-modern form-select-modern',
+                        'prompt' => 'Medio de pago',
+                        'class' => 'form-control form-control-compact form-select-compact',
                         'id' => 'medio-pago-select'
                     ]
-                )->label('💳 Medio de Pago') ?>
+                )->label('💳 Medio') ?>
             </div>
-        </div>
-
-        <!-- Fila 3: Categoría y Cliente -->
-        <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <?= $form->field($model, 'id_categoria')->dropDownList(
                     $categorias,
                     [
-                        'prompt' => 'Seleccione una categoría',
-                        'class' => 'form-control form-control-modern form-select-modern',
+                        'prompt' => 'Categoría',
+                        'class' => 'form-control form-control-compact form-select-compact',
                         'id' => 'categoria-select'
                     ]
                 )->label('📂 Categoría') ?>
             </div>
-            <div class="col-md-6">
+        </div>
+
+        <!-- Fila 3: Cliente -->
+        <div class="row">
+            <div class="col-12">
                 <?= $form->field($model, 'id_cliente')->widget(Select2::classname(), [
                     'options' => [
                         'placeholder' => 'Buscar cliente...',
                         'id' => 'busca-cliente',
-                        'class' => 'form-control-modern',
+                        'class' => 'form-control-compact',
                     ],
                     'pluginOptions' => [
                         'allowClear' => true,
@@ -112,36 +111,36 @@ use yii\web\JsExpression;
             </div>
         </div>
 
-        <!-- Fila 4: Detalle -->
+        <!-- Fila 4: Detalle más compacto -->
         <div class="row">
             <div class="col-12">
                 <?= $form->field($model, 'detalle')->textarea([
-                    'rows' => 4,
-                    'class' => 'form-control form-control-modern',
-                    'placeholder' => 'Ingrese los detalles del movimiento...',
+                    'rows' => 2,
+                    'class' => 'form-control form-control-compact',
+                    'placeholder' => 'Detalles del movimiento...',
                     'id' => 'detalle-textarea'
                 ])->label('📝 Detalle') ?>
             </div>
         </div>
 
-        <!-- Botones de acción -->
+        <!-- Botones de acción compactos -->
         <div class="form-actions">
             <div class="row">
-                <div class="col-md-6">
-                    <?= Html::a('🔙 Cancelar', ['caja/index'], [
-                        'class' => 'btn btn-secondary btn-modern btn-block',
+                <div class="col-6">
+                    <?= Html::a('Cancelar', ['caja/index'], [
+                        'class' => 'btn btn-secondary btn-compact btn-block',
                         'id' => 'btn-cancelar'
                     ]) ?>
                 </div>
-                <div class="col-md-6">
+                <div class="col-6">
                     <?php if ($model->tipo_movimiento == 0): ?>
-                        <?= Html::submitButton('💰 Guardar Ingreso', [
-                            'class' => 'btn btn-success btn-modern btn-block btn-save',
+                        <?= Html::submitButton('💰 Guardar', [
+                            'class' => 'btn btn-success btn-compact btn-block btn-save',
                             'id' => 'btn-guardar'
                         ]) ?>
                     <?php else: ?>
-                        <?= Html::submitButton('💸 Guardar Egreso', [
-                            'class' => 'btn btn-danger btn-modern btn-block btn-save',
+                        <?= Html::submitButton('💸 Guardar', [
+                            'class' => 'btn btn-danger btn-compact btn-block btn-save',
                             'id' => 'btn-guardar'
                         ]) ?>
                     <?php endif; ?>
@@ -154,17 +153,17 @@ use yii\web\JsExpression;
 </div>
 
 <style type="text/css">
-/* === CONTENEDOR PRINCIPAL === */
+/* === CONTENEDOR PRINCIPAL COMPACTO === */
 .caja-form-container {
-    max-width: 800px;
+    max-width: 700px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 15px;
 }
 
 /* === HEADER DEL FORMULARIO === */
 .form-header {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .form-title {
@@ -173,9 +172,9 @@ use yii\web\JsExpression;
 }
 
 .badge {
-    font-size: 1.2rem;
-    padding: 12px 24px;
-    border-radius: 25px;
+    font-size: 1rem;
+    padding: 8px 16px;
+    border-radius: 20px;
     font-weight: 600;
 }
 
@@ -189,53 +188,54 @@ use yii\web\JsExpression;
     color: white;
 }
 
-/* === TARJETA DEL FORMULARIO === */
+/* === TARJETA DEL FORMULARIO COMPACTA === */
 .form-card {
     background: white;
-    border-radius: 15px;
-    padding: 30px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
     border: 1px solid #e9ecef;
 }
 
-/* === FORMULARIO MODERNO === */
+/* === FORMULARIO COMPACTO === */
 .form-modern {
     width: 100%;
 }
 
-.form-group-modern {
-    margin-bottom: 25px;
+.form-group-compact {
+    margin-bottom: 15px;
 }
 
-.form-label-modern {
+.form-label-compact {
     font-weight: 600;
     color: #495057;
-    margin-bottom: 8px;
+    margin-bottom: 5px;
     display: block;
-    font-size: 0.95rem;
+    font-size: 0.875rem;
 }
 
-.form-control-modern {
+.form-control-compact {
     border: 2px solid #e9ecef;
-    border-radius: 8px;
-    padding: 12px 16px;
-    font-size: 1rem;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 0.9rem;
     transition: all 0.3s ease;
     background-color: #fff;
+    height: 36px;
 }
 
-.form-control-modern:focus {
+.form-control-compact:focus {
     border-color: #007bff;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.15);
+    box-shadow: 0 0 0 0.15rem rgba(0, 123, 255, 0.1);
     outline: none;
 }
 
-.form-select-modern {
+.form-select-compact {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
     background-repeat: no-repeat;
-    background-position: right 12px center;
-    background-size: 16px 12px;
-    padding-right: 40px;
+    background-position: right 8px center;
+    background-size: 14px 10px;
+    padding-right: 30px;
 }
 
 .form-control-money {
@@ -244,68 +244,75 @@ use yii\web\JsExpression;
     color: #28a745;
 }
 
-/* === ERRORES === */
-.form-error-modern {
-    color: #dc3545;
-    font-size: 0.875rem;
-    margin-top: 5px;
+/* === TEXTAREA COMPACTO === */
+textarea.form-control-compact {
+    height: auto;
+    resize: vertical;
+    min-height: 60px;
 }
 
-/* === BOTONES === */
+/* === ERRORES === */
+.form-error-compact {
+    color: #dc3545;
+    font-size: 0.8rem;
+    margin-top: 3px;
+}
+
+/* === BOTONES COMPACTOS === */
 .form-actions {
-    margin-top: 30px;
-    padding-top: 20px;
+    margin-top: 20px;
+    padding-top: 15px;
     border-top: 1px solid #e9ecef;
 }
 
-.btn-modern {
-    padding: 12px 24px;
+.btn-compact {
+    padding: 8px 16px;
     font-weight: 600;
-    border-radius: 8px;
+    border-radius: 6px;
     transition: all 0.3s ease;
     border: none;
-    font-size: 1rem;
+    font-size: 0.875rem;
     width: 100%;
 }
 
-.btn-modern:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+.btn-compact:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
 }
 
-.btn-success.btn-modern {
+.btn-success.btn-compact {
     background: linear-gradient(135deg, #58d68d, #2ecc71);
     color: white;
 }
 
-.btn-success.btn-modern:hover {
+.btn-success.btn-compact:hover {
     background: linear-gradient(135deg, #4fc3a5, #27ae60);
 }
 
-.btn-danger.btn-modern {
+.btn-danger.btn-compact {
     background: linear-gradient(135deg, #ec7063, #e74c3c);
     color: white;
 }
 
-.btn-danger.btn-modern:hover {
+.btn-danger.btn-compact:hover {
     background: linear-gradient(135deg, #e55a4e, #c0392b);
 }
 
-.btn-secondary.btn-modern {
+.btn-secondary.btn-compact {
     background: linear-gradient(135deg, #6c757d, #5a6268);
     color: white;
 }
 
-.btn-secondary.btn-modern:hover {
+.btn-secondary.btn-compact:hover {
     background: linear-gradient(135deg, #5a6268, #495057);
 }
 
-/* === SELECT2 PERSONALIZADO === */
+/* === SELECT2 COMPACTO === */
 .select2-container--default .select2-selection--single {
     border: 2px solid #e9ecef !important;
-    border-radius: 8px !important;
-    height: 48px !important;
-    padding: 8px 12px !important;
+    border-radius: 6px !important;
+    height: 36px !important;
+    padding: 4px 8px !important;
 }
 
 .select2-container--default .select2-selection--single:focus {
@@ -313,13 +320,14 @@ use yii\web\JsExpression;
 }
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {
-    line-height: 30px !important;
+    line-height: 26px !important;
     padding-left: 4px !important;
+    font-size: 0.9rem !important;
 }
 
 .select2-container--default .select2-selection--single .select2-selection__arrow {
-    height: 46px !important;
-    right: 8px !important;
+    height: 34px !important;
+    right: 6px !important;
 }
 
 /* === RESPONSIVE === */
@@ -329,32 +337,37 @@ use yii\web\JsExpression;
     }
     
     .form-card {
-        padding: 20px;
+        padding: 15px;
     }
     
-    .form-actions .col-md-6 {
+    .col-md-4 {
         margin-bottom: 10px;
     }
     
     .badge {
-        font-size: 1rem;
-        padding: 8px 16px;
+        font-size: 0.9rem;
+        padding: 6px 12px;
     }
 }
 
 @media (max-width: 576px) {
     .form-card {
-        padding: 15px;
+        padding: 12px;
     }
     
-    .form-control-modern {
-        padding: 10px 12px;
-        font-size: 0.95rem;
+    .form-control-compact {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+        height: 32px;
     }
     
-    .btn-modern {
-        padding: 10px 20px;
-        font-size: 0.9rem;
+    .btn-compact {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+    
+    .form-group-compact {
+        margin-bottom: 12px;
     }
 }
 
@@ -362,7 +375,7 @@ use yii\web\JsExpression;
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(15px);
     }
     to {
         opacity: 1;
@@ -371,34 +384,35 @@ use yii\web\JsExpression;
 }
 
 .form-card {
-    animation: fadeInUp 0.6s ease-out;
+    animation: fadeInUp 0.5s ease-out;
 }
 
 /* === ESTADOS DE VALIDACIÓN === */
-.form-control-modern.is-invalid {
+.form-control-compact.is-invalid {
     border-color: #dc3545;
 }
 
-.form-control-modern.is-valid {
+.form-control-compact.is-valid {
     border-color: #28a745;
 }
 
 /* === MEJORAS ADICIONALES === */
-.form-control-modern::placeholder {
+.form-control-compact::placeholder {
     color: #adb5bd;
     opacity: 1;
+    font-size: 0.85rem;
 }
 
-.form-control-modern:disabled {
+.form-control-compact:disabled {
     background-color: #f8f9fa;
     opacity: 1;
 }
 
 /* === FOCUS INDICATORS === */
-.form-control-modern:focus,
-.form-select-modern:focus {
+.form-control-compact:focus,
+.form-select-compact:focus {
     border-color: #007bff;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.15);
+    box-shadow: 0 0 0 0.15rem rgba(0, 123, 255, 0.1);
 }
 </style>
 
