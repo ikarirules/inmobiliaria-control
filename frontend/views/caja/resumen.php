@@ -10,8 +10,8 @@ $this->title = 'Resumen de Caja';
         <p><strong>Filtrar por medio de pago:</strong></p>
         <?= Html::a('Todos', ['caja/resumen'], ['class' => 'btn btn-secondary mb-2']) ?>
         <?= Html::a('Transferencia', ['caja/resumen', 'medio_pago' => 1], ['class' => 'btn btn-primary mb-2']) ?>
-        <?= Html::a('Efectivo', ['caja/resumen', 'medio_pago' => 2], ['class' => 'btn btn-success mb-2']) ?>
-        <?= Html::a('Cheque', ['caja/resumen', 'medio_pago' => 3], ['class' => 'btn btn-info mb-2']) ?>
+        <?= Html::a('Efectivo', ['caja/resumen', 'medio_pago' => 3], ['class' => 'btn btn-success mb-2']) ?>
+        <?= Html::a('Cheque', ['caja/resumen', 'medio_pago' => 2], ['class' => 'btn btn-info mb-2']) ?>
     </div>
     
     <!-- Totales Generales -->
