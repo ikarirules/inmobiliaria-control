@@ -43,6 +43,7 @@ AppAsset::register($this);
         ['label' => 'Inicio', 'url' => ['/site/index']],
         ['label' => 'Clientes', 'url' => ['/cliente/index']],
         ['label' => 'Caja', 'url' => ['/caja/index']],
+        ['label' => 'Inmueble', 'url' => ['/inmueble/index']],
     ];
 
     echo Nav::widget([
