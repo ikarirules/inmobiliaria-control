@@ -11,7 +11,6 @@ use yii\widgets\Pjax;
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = Yii::t('app', 'Inmuebles');
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="inmueble-index">
 
@@ -28,12 +27,21 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            // ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            // 'id',
             'direccion',
             'detalles:ntext',
-            'dueno',
+            [
+                'attribute' => 'dueno',
+                'label' => 'Dueño',
+                'value' => function ($model) {
+                    return $model->dueno0
+                        ? $model->dueno0->nombres . ' ' . $model->dueno0->apellidos
+                        : '-';
+                },
+            ],
+
             'estado',
             //'inquilino',
             [

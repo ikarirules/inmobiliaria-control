@@ -112,12 +112,13 @@ use yii\helpers\ArrayHelper;
                 ])->label('👤 Cliente') ?>
             </div>
             <div class="col-6">
-                <?= $form->field($model, 'inmueble_id')->dropDownList(
-                    ArrayHelper::map(Inmueble::find()->where(['estado' => 'alquilada'])->all(), 'id', 'direccion'),
-                    ['prompt' => 'Seleccione un inmueble (opcional)']
-                ) ?>
-
-
+                <?php
+                    if ($model->tipo_movimiento == 0) {?>
+                        <?= $form->field($model, 'inmueble_id')->dropDownList(
+                            ArrayHelper::map(Inmueble::find()->where(['estado' => 'alquilada'])->all(), 'id', 'direccion'),
+                            ['prompt' => 'Seleccione un inmueble (opcional)']
+                        ); ?>
+                    <?php } ?>
             </div>
         </div>
 
