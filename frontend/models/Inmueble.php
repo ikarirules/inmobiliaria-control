@@ -1,5 +1,4 @@
 <?php
-
 namespace frontend\models;
 
 use Yii;
@@ -111,7 +110,7 @@ class Inmueble extends \yii\db\ActiveRecord
 
     public function getDueno0()
     {
-        return $this->hasOne(Cliente::class, ['id' => 'propietario']);
+        return $this->hasOne(Cliente::class, ['id' => 'dueno']);
     }
 
     public function getInquilino0()

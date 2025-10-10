@@ -89,4 +89,10 @@ class Caja extends \yii\db\ActiveRecord
         return $this->hasOne(Cliente::class, ['id' => 'id_cliente']);
     }
 
+    public function getInmueble()
+    {
+        return $this->hasOne(Inmueble::class, ['id' => 'inmueble_id']);
+    }
+
+
 }

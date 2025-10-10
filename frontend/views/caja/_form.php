@@ -3,6 +3,8 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
 use yii\web\JsExpression;
+use frontend\models\Inmueble;
+use yii\helpers\ArrayHelper;
 /** @var yii\web\View $this */
 /** @var frontend\models\Caja $model */
 /** @var yii\widgets\ActiveForm $form */
@@ -85,7 +87,7 @@ use yii\web\JsExpression;
 
         <!-- Fila 3: Cliente -->
         <div class="row">
-            <div class="col-12">
+            <div class="col-6">
                 <?= $form->field($model, 'id_cliente')->widget(Select2::classname(), [
                     'options' => [
                         'placeholder' => 'Buscar cliente...',
@@ -108,6 +110,14 @@ use yii\web\JsExpression;
                         'templateSelection' => new JsExpression('function (cliente) { return cliente.text; }'),
                     ],
                 ])->label('👤 Cliente') ?>
+            </div>
+            <div class="col-6">
+                <?= $form->field($model, 'inmueble_id')->dropDownList(
+                    ArrayHelper::map(Inmueble::find()->where(['estado' => 'alquilada'])->all(), 'id', 'direccion'),
+                    ['prompt' => 'Seleccione un inmueble (opcional)']
+                ) ?>
+
+
             </div>
         </div>
 

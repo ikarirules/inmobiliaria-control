@@ -131,4 +131,21 @@ class InmuebleController extends Controller
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
+
+    public function actionAlquilados()
+    {
+        $mes = date('m');
+        $anio = date('Y');
+
+        $inmuebles = Inmueble::find()
+            ->where(['estado' => 'alquilada'])
+            ->all();
+
+        return $this->render('alquilados', [
+            'inmuebles' => $inmuebles,
+            'mes' => $mes,
+            'anio' => $anio,
+        ]);
+    }
+
 }
