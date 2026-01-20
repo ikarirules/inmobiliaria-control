@@ -25,7 +25,7 @@ $this->title = 'Inmuebles Alquilados';
             <?php
             // Buscamos si hay un ingreso en la caja este mes para este inquilino
             $pago = Caja::find()
-                ->where(['tipo_movimiento' => '1'])
+                ->where(['tipo_movimiento' => '0'])
                 ->andWhere(['id_cliente' => $inmueble->inquilino])
                 ->andWhere(['between', 'fecha', "$anio-$mes-01", "$anio-$mes-31"])
                 ->one();
